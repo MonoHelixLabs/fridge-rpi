@@ -1,1 +1,1 @@
-# myfridge-rpi
+# fridge-rpi
