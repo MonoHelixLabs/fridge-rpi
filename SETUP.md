@@ -40,7 +40,7 @@ mac:LeanSetup radu$ sudo dd bs=4m if=2016-03-12-jessie-minibian.img of=/dev/disk
 ```
 # Configure installation
 ## Change password
-Initial password for root is raspberry and we need to change to something more secure.
+Initial password for root is `raspberry` and we need to change to something more secure.
 ```
 rpi:~# passwd
 ```
@@ -65,14 +65,14 @@ Add user to sudo group:
 ```
 root@minibian:~# adduser <user> sudo
 ```
-Logout from ssh with exit and login with ssh <user>@<host>
+Logout from `ssh` with `exit` and login with `ssh <user>@<host>`
 
-Disable root login:
+Disable `root` login:
 ```
 radu@minibian:~$ sudo passwd -l root
 ```
 ## Configure WiFi
-Install usbutils:
+Install `usbutils`:
 ```
 radu@minibian:~$ sudo apt-get install usbutils
 ```
@@ -85,7 +85,7 @@ Install firmware:
 ```
 radu@minibian:~$ sudo apt-get install firmware-realtek
 ```
-Install wpasupplicant and wireless-tools (for the iwlist):
+Install `wpasupplicant` and `wireless-tools` (for the `iwlist`):
 ```
 radu@minibian:~$ sudo apt-get install wpasupplicant wireless-tools
 ```
@@ -103,7 +103,7 @@ iface wlan0 inet manual
 wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 iface default inet dhcp
 ```
-Change wpa_supplicant configuration file:
+Change `wpa_supplicant` configuration file:
 ```
 radu@minibian:~$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 ```
@@ -117,7 +117,7 @@ network={
 }
 ```
 ### (Optional) Disable power save mode on Edimax EW-7811Un
-Make a file 8192cu.conf in directory /etc/modprobe.d/ with the command:
+Make a file `8192cu.conf` in directory `/etc/modprobe.d/`:
 ```
 radu@minibian:~$ sudo nano /etc/modprobe.d/8192cu.conf
 ```
@@ -137,11 +137,11 @@ Match Address 10.0.0.0/8
 ```
 # Camera setup
 ## Setup USB cameras
-Install fswebcam:
+Install `fswebcam`:
 ```
 radu@minibian:~$ sudo apt-get install fswebcam
 ```
-Add user to video group:
+Add user to `video` group:
 ```
 radu@minibian:~$ sudo adduser radu video
 ```
@@ -150,7 +150,7 @@ radu@minibian:~$ sudo adduser radu video
 radu@minibian:~$ fswebcam -d /dev/video0 --top-banner --title CAM0 -r 1920x720 v0.jpg; fswebcam -d /dev/video1 --top-banner --title CAM1 -r 1920x720 v1.jpg
 ```
 ## Setup RPi camera
-Enable camera from raspi-config.
+Enable camera from `raspi-config`.
 ## Take pictures with RPi camera
 ```
 radu@minibian:~$ raspistill -w 1440 -h 720 -o v2.jpg -t 1
@@ -165,20 +165,20 @@ Install pip:
 ```
 radu@minibian:~$ sudo apt-get install python3-pip
 ```
-Install awscli, for managing AWS services:
+Install `awscli`, for managing AWS services:
 ```
 radu@minibian:~$ sudo pip3 install awscli
 ```
-Install boto3, for interfacing with AWS services:
+Install `boto3`, for interfacing with AWS services:
 ```
 radu@minibian:~$ sudo pip3 install boto3
 ```
 ## Talk some MQTT
-Install paho:
+Install `paho`:
 ```
 radu@minibian:~$ sudo pip3 install paho-mqtt 
 ```
-Install adafruit-io:
+Install `adafruit-io`:
 ```
 radu@minibian:~$ sudo pip3 install adafruit-io
 ```
@@ -187,7 +187,7 @@ Set `AIOKEY` and `AIOUSER` environment variable:
 radu@minibian:~$ sudo nano /etc/environment
 ```
 ## Code the GPIO
-Install RPi.GPIO:
+Install `RPi.GPIO`:
 ```
 radu@minibian:~$ sudo pip3 install RPi.GPIO
 ```
@@ -196,7 +196,7 @@ Set permissions for `/dev/mem`:
 radu@minibian:~$ sudo groupadd gpio
 radu@minibian:~$ sudo gpasswd -a radu gpio
 ```
-Add udev rule:
+Add `udev` rule:
 ```
 radu@minibian:~$ sudo nano /etc/udev/rules.d/99-com.rules
 ```
