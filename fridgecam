@@ -1,0 +1,34 @@
+#! /bin/sh
+# /etc/init.d/fridgecam
+
+### BEGIN INIT INFO
+# Provides:          fridgecam
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Fridge cam taking pictures
+# Description:       A simple project to listen for MQTT messages and taking pictures.
+### END INIT INFO
+
+# If you want a command to always run, put it here
+
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "Starting fridgecam"
+    # run application you want to start
+    su radu -c 'python3 /home/radu/fridgecam.py &'
+    ;;
+  stop)
+    echo "Stopping fridgecam"
+    # kill application you want to stop
+    pkill -f fridgecam.py
+    ;;
+  *)
+    echo "Usage: /etc/init.d/fridgecam {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
