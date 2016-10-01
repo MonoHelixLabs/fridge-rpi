@@ -9,7 +9,7 @@ from Adafruit_IO import MQTTClient
 import RPi.GPIO as GPIO
 
 aio_key = os.environ['AIOKEY']
-aio_user = 'ppaula'
+aio_user = os.environ['AIOUSER']
 aio = Client(aio_key)
 aio_mqtt = MQTTClient(aio_user, aio_key)
 s3 = boto3.client('s3')
