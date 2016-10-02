@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>FridgeCam</title>
+</head>
+<body>
+<script src='./browserMqtt.js'></script>
+<script>
+var url = 'wss://io.adafruit.com:443/mqtt/'
+var topic = 'fridgecam'
+var username = ''
+var password = ''
+var full_topic = [username, 'feeds', topic].join('/')
+var options = {
+    'keepalive': 60,
+    'username': username,
+    'password': password,
+}
+var client = mqtt.connect(url, options)
+client.subscribe(full_topic)
+
+client.on('message', function (topic, payload) {
+    console.log([topic, payload].join(': '))
+    client.end()
+})
+
+client.publish(full_topic, 'snapnow')
+</script>
+</body>
+</html>
