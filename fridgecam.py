@@ -16,7 +16,8 @@ s3 = boto3.client('s3')
 size = "1920x720"
 dev0 = "/dev/video0"
 dev1 = "/dev/video1"
-mqtt_feed = 'fridgecam'
+mqtt_feed_sub = 'fridgecam'
+mqtt_feed_pub = 'fridgecamsnaps'
 s3_bucket = 'fridge.monohelixlabs.com'
 relay_pin = 10
 
@@ -24,8 +25,8 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(relay_pin, GPIO.OUT, initial=GPIO.LOW)
 
 def connected(client):
-    print('Connected to AIO!  Listening for '+mqtt_feed+' changes...')
-    client.subscribe(mqtt_feed)
+    print('Connected to AIO!  Listening for '+mqtt_feed_sub+' changes...')
+    client.subscribe(mqtt_feed_sub)
 
 def disconnected(client):
     print('Disconnected from AIO!')
@@ -58,10 +59,10 @@ def grab_images():
     end_time = timer()
     delta_time = end_time - start_time
     print('Elapsed:',delta_time)
-    aio.send(mqtt_feed, delta_time)
+    aio.send(mqtt_feed_pub, delta_time)
 
 def message(client, feed_id, payload):
-    print('Feed '+mqtt_feed+' received new value:', payload)
+    print('Feed '+mqtt_feed_sub+' received new value:', payload)
     if payload == 'snapnow':
         grab_images()
 
