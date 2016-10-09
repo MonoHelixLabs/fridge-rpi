@@ -29,14 +29,15 @@
     </div>
 
 <script src='./browserMqtt.js'></script>
+<script src='./environment.js'></script>
 <script>
 
 var snapObject = {
 	url: 'wss://io.adafruit.com:443/mqtt/',
 	fridgecam: 'fridgecam',
 	fridgecamsnaps: 'fridgecamsnaps',
-	username: '',
-	password:''
+	username: environmentVariables.username,
+	password: environmentVariables.password
 }
 
 var snapOptions = {
