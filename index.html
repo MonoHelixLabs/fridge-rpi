@@ -1,29 +1,88 @@
 <html>
 <head>
     <title>FridgeCam</title>
+
+    <style type="text/css">
+    	.row {
+    		width: 100%;
+    		display: flex;
+    	}
+
+    	.snappedImage {
+    		flex-direction: row;
+    		width: 300px;
+    		height: 300px;
+    		border: 1px solid white;
+    	}
+    </style>
 </head>
 <body>
+
+    <a href="javascript:void(0)" id="snapButton">
+        Take a picture
+    </a>
+
+    <div class="row">
+	    <img src="http://fridge.monohelixlabs.com/v0.jpg" class="snappedImage" id="cam1">
+	    <img src="http://fridge.monohelixlabs.com/v1.jpg" class="snappedImage" id="cam2">
+	    <img src="http://fridge.monohelixlabs.com/v2.jpg" class="snappedImage" id="cam3">
+    </div>
+
 <script src='./browserMqtt.js'></script>
 <script>
-var url = 'wss://io.adafruit.com:443/mqtt/'
-var topic = 'fridgecam'
-var username = ''
-var password = ''
-var full_topic = [username, 'feeds', topic].join('/')
-var options = {
-    'keepalive': 60,
-    'username': username,
-    'password': password,
+
+var snapObject = {
+	url: 'wss://io.adafruit.com:443/mqtt/',
+	fridgecam: 'fridgecam',
+	fridgecamsnaps: 'fridgecamsnaps',
+	username: '',
+	password:''
 }
-var client = mqtt.connect(url, options)
-client.subscribe(full_topic)
 
-client.on('message', function (topic, payload) {
-    console.log([topic, payload].join(': '))
-    client.end()
-})
+var snapOptions = {
+	'keepalive': 60,
+	'username': snapObject.username,
+	'password': snapObject.password
+}
 
-client.publish(full_topic, 'snapnow')
+function takeSnaps() {
+	var fridgeCamTopic = [snapObject.username, 'feeds', snapObject.fridgecam].join('/');
+
+	var client = mqtt.connect(snapObject.url, snapOptions);
+
+	client.subscribe(fridgeCamTopic);
+
+	client.on('message', function (fridgeCamTopic, payload) {
+	    client.end();
+	});
+
+	client.publish(fridgeCamTopic, 'snapnow');
+}
+
+function getSnaps() {
+	var source = 'http://fridge.monohelixlabs.com/';
+	var fridgeCamSnapsTopic = [snapObject.username, 'feeds', snapObject.fridgecamsnaps].join('/');
+
+	var client = mqtt.connect(snapObject.url, snapOptions);
+
+	client.subscribe(fridgeCamSnapsTopic)
+
+	client.on('message', function (fridgeCamSnapsTopic, payload) {
+
+		d = new Date();
+
+		document.getElementById("cam1").src= source + "v0.jpg?"+d.getTime();
+		document.getElementById("cam2").src= source + "v1.jpg?"+d.getTime();
+		document.getElementById("cam3").src= source + "v2.jpg?"+d.getTime();
+	}); 
+}
+
+window.onload = function() {
+	getSnaps();
+
+	document.getElementById('snapButton').onclick=takeSnaps;
+}
+
 </script>
 </body>
 </html>
