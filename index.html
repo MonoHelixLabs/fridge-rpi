@@ -53,6 +53,7 @@ function takeSnaps() {
 }
 
 function getSnaps() {
+	var source = 'http://fridge.monohelixlabs.com/';
 	var fridgeCamSnapsTopic = [snapObject.username, 'feeds', snapObject.fridgecamsnaps].join('/');
 
 	var client = mqtt.connect(snapObject.url, snapOptions);
@@ -60,6 +61,12 @@ function getSnaps() {
 	client.subscribe(fridgeCamSnapsTopic)
 
 	client.on('message', function (fridgeCamSnapsTopic, payload) {
+
+		d = new Date();
+
+		document.getElementById("cam1").src= source + "v0.jpg?"+d.getTime();
+		document.getElementById("cam2").src= source + "v1.jpg?"+d.getTime();
+		document.getElementById("cam3").src= source + "v2.jpg?"+d.getTime();
 	}); 
 }
 
