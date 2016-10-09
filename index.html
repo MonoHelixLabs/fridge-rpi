@@ -3,17 +3,19 @@
     <title>FridgeCam</title>
 
     <style type="text/css">
-    	.row {
-    		width: 100%;
-    		display: flex;
-    	}
+		.image-grid-container .image-grid {
+		  display: flex;
+		}
 
-    	.snappedImage {
-    		flex-direction: row;
-    		width: 300px;
-    		height: 300px;
-    		border: 1px solid white;
-    	}
+		.image-grid-container .image-grid .img img {
+		  width: 100%;
+		}
+
+		@media (max-width: 768px) {
+			.image-grid-container .image-grid {
+			  display: block;
+			}
+		}
     </style>
 </head>
 <body>
@@ -22,10 +24,18 @@
         Take a picture
     </a>
 
-    <div class="row">
-	    <img src="http://fridge.monohelixlabs.com/v0.jpg" class="snappedImage" id="cam1">
-	    <img src="http://fridge.monohelixlabs.com/v1.jpg" class="snappedImage" id="cam2">
-	    <img src="http://fridge.monohelixlabs.com/v2.jpg" class="snappedImage" id="cam3">
+    <div class="image-grid-container">
+    	<div class="image-grid">
+    		<div class="img">
+    			<img src="http://fridge.monohelixlabs.com/v0.jpg" class="snappedImage" id="cam1">	
+    		</div>
+    		<div class="img">
+    			<img src="http://fridge.monohelixlabs.com/v1.jpg" class="snappedImage" id="cam2">
+    		</div>
+    		<div class="img">
+    			<img src="http://fridge.monohelixlabs.com/v2.jpg" class="snappedImage" id="cam3">
+    		</div>
+    	</div>
     </div>
 
 <script src='./browserMqtt.js'></script>
