@@ -46,6 +46,17 @@ function takeSnaps() {
 	client.publish(fridgeCamTopic, 'snapnow');
 }
 
+function getSnaps() {
+	var fridgeCamSnapsTopic = [snapObject.username, 'feeds', snapObject.fridgecamsnaps].join('/');
+
+	var client = mqtt.connect(snapObject.url, snapOptions);
+
+	client.subscribe(fridgeCamSnapsTopic)
+
+	client.on('message', function (fridgeCamSnapsTopic, payload) {
+	}); 
+}
+
 window.onload = function() {
 	getSnaps();
 
