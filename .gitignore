@@ -1,4 +1,4 @@
 node_modules
 browserMqtt.js
 .DS_Store
-environment.json
+environment.js
