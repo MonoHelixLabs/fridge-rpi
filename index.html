@@ -6,10 +6,7 @@
 <script src='./browserMqtt.js'></script>
 <script>
 var full_topic = [username, 'feeds', topic].join('/')
-var options = {
-    'keepalive': 60,
-    'username': username,
-    'password': password,
+
 var snapObject = {
 	url: 'wss://io.adafruit.com:443/mqtt/',
 	fridgecam: 'fridgecam',
@@ -17,6 +14,11 @@ var snapObject = {
 	username: '',
 	password:''
 }
+
+var snapOptions = {
+	'keepalive': 60,
+	'username': snapObject.username,
+	'password': snapObject.password
 }
 var client = mqtt.connect(url, options)
 client.subscribe(full_topic)
