@@ -30,7 +30,6 @@
 
 <script src='./browserMqtt.js'></script>
 <script>
-var full_topic = [username, 'feeds', topic].join('/')
 
 var snapObject = {
 	url: 'wss://io.adafruit.com:443/mqtt/',
@@ -45,13 +44,7 @@ var snapOptions = {
 	'username': snapObject.username,
 	'password': snapObject.password
 }
-var client = mqtt.connect(url, options)
-client.subscribe(full_topic)
 
-client.on('message', function (topic, payload) {
-    console.log([topic, payload].join(': '))
-    client.end()
-})
 function takeSnaps() {
 	var fridgeCamTopic = [snapObject.username, 'feeds', snapObject.fridgecam].join('/');
 
@@ -90,7 +83,6 @@ window.onload = function() {
 	document.getElementById('snapButton').onclick=takeSnaps;
 }
 
-client.publish(full_topic, 'snapnow')
 </script>
 </body>
 </html>
