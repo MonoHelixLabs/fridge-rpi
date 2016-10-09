@@ -32,6 +32,9 @@ client.on('message', function (topic, payload) {
     console.log([topic, payload].join(': '))
     client.end()
 })
+window.onload = function() {
+	document.getElementById('snapButton').onclick=takeSnaps;
+}
 
 client.publish(full_topic, 'snapnow')
 </script>
