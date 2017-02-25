@@ -92,11 +92,12 @@
 		    	<div class="col-md-2">
 	    				<img src="http://fridge.monohelixlabs.com/v1.jpg" class="img-thumbnail square" id="cam2" style="margin:10px; -webkit-transform: rotate(180deg);">
 	    				<img src="http://fridge.monohelixlabs.com/v2.jpg" class="img-thumbnail square" id="cam3" style="margin:10px;  -webkit-transform: rotate(180deg);">
-	    				<img src="http://fridge.monohelixlabs.com/v0.jpg" class="img-thumbnail square" id="cam1" style="margin:10px; -webkit-transform: rotate(90deg);">
+	    				<img src="http://fridge.monohelixlabs.com/v0.jpg" class="img-thumbnail square" data-style="angle-90" id="cam1" style="margin:10px; -webkit-transform: rotate(90deg);">
 			    </div>
 			    <div class="col-md-10 center-block">
+						<!--transform: rotate(90deg) translateX(25%) translateY(-50%); width: 50vh;-->
 		    		<div id="currentimg">
-		    			<img src="http://fridge.monohelixlabs.com/v1.jpg" style="margin:10px; -webkit-transform: rotate(180deg);" width="90%">
+		    			<img src="http://fridge.monohelixlabs.com/v1.jpg" style="margin:10px; -webkit-transform: rotate(180deg); width: 90%;">
 		    		</div>
 			    </div>
 		    </div>
@@ -123,7 +124,7 @@
 		    var id = $(this).attr('id');
 		    $('#currentimg img').attr('src', src);
 		    if (id === "cam1") { 
-		    	$('#currentimg img').attr('style', "-webkit-transform: rotate(90deg) translateX(200px);");
+		    	$('#currentimg img').attr('style', "-webkit-transform: rotate(90deg) translateX(25%) translateY(-50%); width: 50vh;");
 		    } else {
 		    	$('#currentimg img').attr('style', style);
 		    }
