@@ -88,18 +88,26 @@
 		 <div class="row"> 
 		 	<h3>FridgeCam</h3>
 		 	<br/>
-		    <div id="fridgecam">
-		    	<div class="col-md-2">
-	    				<img src="http://fridge.monohelixlabs.com/v1.jpg" class="img-thumbnail square" id="cam2" style="margin:10px; -webkit-transform: rotate(180deg);">
-	    				<img src="http://fridge.monohelixlabs.com/v2.jpg" class="img-thumbnail square" id="cam3" style="margin:10px;  -webkit-transform: rotate(180deg);">
-	    				<img src="http://fridge.monohelixlabs.com/v0.jpg" class="img-thumbnail square" id="cam1" style="margin:10px; -webkit-transform: rotate(90deg);">
-			    </div>
-			    <div class="col-md-10 center-block">
-		    		<div id="currentimg">
-		    			<img src="http://fridge.monohelixlabs.com/v1.jpg" style="margin:10px; -webkit-transform: rotate(180deg);" width="90%">
-		    		</div>
-			    </div>
-		    </div>
+			<div style="display: flex; justify-content: space-between;">
+				<figure class="zoom-effect" style="width: 30%; margin: 20px 0;">
+						<div class="aspectRatioPlaceholder" >
+								<div class="aspect-ratio-fill" style="padding-bottom: 50%;"></div>
+								<img class="img" data-height="1920" data-width="1080" src="http://fridge.monohelixlabs.com/v0.jpg">
+						</div>
+				</figure>
+				<figure class="zoom-effect" style="width: 30%; margin: 20px 0;">
+						<div class="aspectRatioPlaceholder" >
+								<div class="aspect-ratio-fill" style="padding-bottom: 50%;"></div>
+								<img class="img" data-height="1920" data-width="1080" src="http://fridge.monohelixlabs.com/v1.jpg">
+						</div>
+				</figure>
+				<figure class="zoom-effect" style="width: 30%; margin: 20px 0;">
+						<div class="aspectRatioPlaceholder" >
+								<div class="aspect-ratio-fill" style="padding-bottom: 50%;"></div>
+								<img class="img" data-height="1920" data-width="1080" src="http://fridge.monohelixlabs.com/v2.jpg">
+						</div>
+				</figure>			
+			</div>
 		 </div>
 	</div>
 
