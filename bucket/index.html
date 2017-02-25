@@ -45,6 +45,9 @@
 			background-color: #e8e8e8;
 			margin-bottom: 60px;
 		}
+		.snapshot-response {
+			margin-left: 15px;
+		}
 		.footer {
 		  position: absolute;
 		  bottom: 0;
@@ -87,6 +90,7 @@
 	<div class="container">
 		 <div class="row"> 
 		 	<h3>FridgeCam</h3>
+			<button class="btn btn-success take-snap">Snapshot</button> <span class="snapshot-response"></span>
 		 	<br/>
 			<div style="display: flex; justify-content: space-between;">
 				<figure class="zoom-effect" style="width: 30%; margin: 20px 0;">
@@ -141,6 +145,15 @@
 
 	<script>
 		MediumLightbox('figure.zoom-effect');
+	</script>
+
+	<script>
+		$('.take-snap').on('click', function(e) {
+			e.preventDefault();
+			$.get('http://fridge-api-dev.eu-central-1.elasticbeanstalk.com/snapnow', function(data, status) {
+				$('.snapshot-response').html(data);
+			}, 'html')
+		});
 	</script>
 
 </body>
