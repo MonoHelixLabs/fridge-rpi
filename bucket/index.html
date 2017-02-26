@@ -91,7 +91,7 @@
 
 	<div class="container">
 		 <div class="row"> 
-			 <div class="col-sm-12 col-md-6">
+			 <div class="col-sm-12 col-md-12">
 				<h3>FridgeCam</h3>
 				<button class="btn btn-success take-snap">Snapshot</button> <span class="snapshot-response"></span>
 			</div>
@@ -158,7 +158,7 @@
 		$('.take-snap').on('click', function(e) {
 			e.preventDefault();
 			$.get('http://fridge-api-dev.eu-central-1.elasticbeanstalk.com/snapnow', function(data, status) {
-				$('.snapshot-response').html(data);
+				$('.snapshot-response').html('<div class="alert alert-info alert-dismissable" style="display:inline-block;margin-bottom:0px; padding:5px; padding-right: 35px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + data + "</div>");
 			}, 'html')
 		});
 	</script>
