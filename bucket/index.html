@@ -93,7 +93,9 @@
 		 <div class="row"> 
 			 <div class="col-sm-12 col-md-12">
 				<h3>FridgeCam</h3>
-				<button class="btn btn-success take-snap">Snapshot</button> <span class="snapshot-response"></span>
+				<button class="btn btn-success take-snap"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Snapshot</button>
+				<button class="btn btn-primary refresh-images"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button>
+				<span class="snapshot-response"></span>
 			</div>
 		</div>
 		<div>
@@ -101,13 +103,13 @@
 				<figure class="zoom-effect" style="width: 90%; display: inline-block">
 						<div class="aspectRatioPlaceholder" >
 								<div class="aspect-ratio-fill" style="padding-bottom: 50%;"></div>
-								<img class="img" data-height="1080" data-width="1920" src="http://fridge.monohelixlabs.com/v1.jpg">
+								<img id ="v1" class="img" data-height="1080" data-width="1920" src="http://fridge.monohelixlabs.com/v1.jpg">
 						</div>
 				</figure>
 				<figure class="zoom-effect" style="width: 90%; display: inline-block">
 						<div class="aspectRatioPlaceholder" >
 								<div class="aspect-ratio-fill" style="padding-bottom: 50%;"></div>
-								<img class="img" data-height="1944" data-width="2592" src="http://fridge.monohelixlabs.com/v2.jpg">
+								<img id="v2" class="img" data-height="1944" data-width="2592" src="http://fridge.monohelixlabs.com/v2.jpg">
 						</div>
 				</figure>	
 			</div>	
@@ -115,7 +117,7 @@
 				<figure class="zoom-effect" style="width: 90%; display: inline-block">
 						<div class="aspectRatioPlaceholder" >
 								<div class="aspect-ratio-fill" style="padding-bottom: 177%;"></div>
-								<img class="img" data-width="1080" data-height="1920" src="http://fridge.monohelixlabs.com/v0.jpg">
+								<img id="v0" class="img" data-width="1080" data-height="1920" src="http://fridge.monohelixlabs.com/v0.jpg">
 						</div>
 				</figure>
 			</div>
@@ -132,19 +134,6 @@
 
     <!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-	<script type="text/javascript">
-		$('.img-thumbnail').on('click',function(){
-		    var src = $(this).attr('src');
-		    var style = $(this).attr('style');
-		    var id = $(this).attr('id');
-		    $('#currentimg img').attr('src', src);
-		    if (id === "cam1") { 
-		    	$('#currentimg img').attr('style', "-webkit-transform: rotate(90deg) translateX(200px);");
-		    } else {
-		    	$('#currentimg img').attr('style', style);
-		    }
-		});
     
 	</script>
 
@@ -160,6 +149,13 @@
 			$.get('http://fridge-api-dev.eu-central-1.elasticbeanstalk.com/snapnow', function(data, status) {
 				$('.snapshot-response').html('<div class="alert alert-info alert-dismissable" style="display:inline-block;margin-bottom:0px; padding:5px; padding-right: 35px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + data + "</div>");
 			}, 'html')
+		});
+		$('.refresh-images').on('click', function(e) {
+			e.preventDefault();
+			const date = new Date().getTime();
+			$('#v1').attr('src',"http://fridge.monohelixlabs.com/v1.jpg?random="+date);
+			$('#v2').attr('src',"http://fridge.monohelixlabs.com/v2.jpg?random="+date);
+			$('#v0').attr('src',"http://fridge.monohelixlabs.com/v0.jpg?random="+date);
 		});
 	</script>
 
