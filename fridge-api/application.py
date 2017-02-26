@@ -2,7 +2,10 @@ import time
 from Adafruit_IO import Client
 from Adafruit_IO import MQTTClient
 from flask import Flask
+from flask_cors import CORS, cross_origin
 application = Flask(__name__)
+cors = CORS(application)
+application.config['CORS_HEADERS'] = 'Content-Type'
 
 aio_key = ''
 aio_user = ''
@@ -45,6 +48,7 @@ def hello():
     return 'Hello World!'
 
 @application.route('/snapnow')
+@cross_origin()
 def snapnow():
     return send_message()
 

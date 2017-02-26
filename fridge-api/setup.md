@@ -7,6 +7,7 @@ brew install python3
 python3 -m venv ~/.virtualenvs/fridge-api
 source ~/.virtualenvs/fridge-api/bin/activate
 pip install flask
+pip install flask-cors
 pip install paho-mqtt
 # pip install adafruit-io
 
