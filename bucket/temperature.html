@@ -39,6 +39,15 @@
 		  padding-right: 15px;
 		  padding-left: 15px;
 		}
+		.overlay {
+			position: absolute;
+			width: 300px;
+			background-color: #7f9cc1;
+			opacity: .7;
+			text-align: center;
+			color: white;
+			font-weight: bold;
+		}
 	</style>
 
 </head>
@@ -68,8 +77,18 @@
 		 <div class="row"> 
 		 	 <div id="temperature" class="col-sm-12 col-md-6">
 		    	<h3>Temperature</h3>
-		    	<p>The temperature inside the fridge is ...</br> probably around 5 degrees C?</p>
-		    	<p>This page is work in progress.</p>
+					<div id="coldmap" style="position:relative; width:300px; margin-left: 20px; overflow:hidden;">
+						<img src="fridge_heatmap.jpg" width="300">
+						<div id="overlay-tmptop" class="overlay" style="top: 0px; height: 160px; padding-top: 70px;">
+								<div class="api-response-tmptop"></div>
+						</div>
+						<div id="overlay-tmpmid" class="overlay" style="top: 160px; height: 120px; padding-top: 50px;">
+								<div class="api-response-tmpmid"></div>
+						</div>
+						<div id="overlay-tmpbot" class="overlay" style="top: 280px; height: 120px; padding-top: 50px;">
+								<div class="api-response-tmpbot"></div>
+						</div>
+					</div>
 		    </div>
 		 </div>
 		   
@@ -86,5 +105,26 @@
     <!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+	<script>
+		// Get temperatures through the Adafruit IO REST API
+		$.get('https://io.adafruit.com/api/v2/ppaula/feeds/tmptop/data.json?limit=1', function(data, status) {
+					// parse as JSON but remove the starting [ and ending ]
+					jsonobj = JSON.parse(data.substring(1,data.length-1)); 
+					$('.api-response-tmptop').html(jsonobj.value + " &deg;C");
+					$('#overlay-tmptop').css('background-color',"rgb(105, 146, 181)");
+				}, 'html')
+		$.get('https://io.adafruit.com/api/v2/ppaula/feeds/tmpmiddle/data.json?limit=1', function(data, status) {
+					// parse as JSON but remove the starting [ and ending ]
+					jsonobj = JSON.parse(data.substring(1,data.length-1)); 
+					$('.api-response-tmpmid').html(jsonobj.value + " &deg;C");
+					$('#overlay-tmpmid').css('background-color',"rgb(54, 104, 148)");
+				}, 'html')
+		$.get('https://io.adafruit.com/api/v2/ppaula/feeds/tmpbottom/data.json?limit=1', function(data, status) {
+					// parse as JSON but remove the starting [ and ending ]
+					jsonobj = JSON.parse(data.substring(1,data.length-1)); 
+					$('.api-response-tmpbot').html(jsonobj.value + " &deg;C");
+					$('#overlay-tmpbot').css('background-color',"rgb(40, 78, 111)");
+				}, 'html')
+	</script>
 </body>
 </html>

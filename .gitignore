@@ -3,3 +3,4 @@ browserMqtt.js
 .DS_Store
 environment.js
 fridge-api/requirements.txt
+fridgecam_webclient
