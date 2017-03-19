@@ -143,6 +143,10 @@ PermitRootLogin no
 Match Address 10.0.0.0/8
     PasswordAuthentication yes
 ```
+Restart `ssh` service:
+```
+radu@minibian:~$ sudo /etc/init.d/ssh restart
+```
 # Camera setup
 ## Setup USB cameras
 Install `fswebcam`:
