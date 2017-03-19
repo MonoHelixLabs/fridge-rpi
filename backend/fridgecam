@@ -18,8 +18,8 @@ case "$1" in
   start)
     echo "Starting fridgecam"
     # run application you want to start
-    su radu -c 'python3 /home/radu/fridgecam.py &'
-    su radu -c 'python3 /home/radu/fridgetemp.py &'
+    su radu -c 'python3 /home/radu/fridge-rpi/backend/fridgecam.py &'
+    su radu -c 'python3 /home/radu/fridge-rpi/backend/fridgetemp.py &'
     ;;
   stop)
     echo "Stopping fridgecam"
