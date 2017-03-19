@@ -19,11 +19,13 @@ case "$1" in
     echo "Starting fridgecam"
     # run application you want to start
     su radu -c 'python3 /home/radu/fridgecam.py &'
+    su radu -c 'python3 /home/radu/fridgetemp.py &'
     ;;
   stop)
     echo "Stopping fridgecam"
     # kill application you want to stop
     pkill -f fridgecam.py
+    pkill -f fridgetemp.py
     ;;
   *)
     echo "Usage: /etc/init.d/fridgecam {start|stop}"

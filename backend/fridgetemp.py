@@ -4,12 +4,7 @@ from time import sleep
 from Adafruit_IO import Client
 from Adafruit_IO import MQTTClient
 
-
-os.system('modprobe w1-gpio')
-os.system('modprobe w1-therm')
-
 base_dir = '/sys/bus/w1/devices/'
-
 aio_key = os.environ['AIOKEY']
 aio_user = os.environ['AIOUSER']
 aio = Client(aio_key)
@@ -38,7 +33,8 @@ def read_temp(device_file):
         return temp_c
 
 if __name__ == '__main__':
-    for feed_name, device_file in feed_map:
-        temp_c = read_temp(device_file)
-        aio.send(feed_name, temp_c)
-    sleep(60)
+    while True:
+        for feed_name, device_file in feed_map.items():
+            temp_c = read_temp(device_file)
+            aio.send(feed_name, temp_c)
+        sleep(60)
