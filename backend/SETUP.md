@@ -147,6 +147,15 @@ Restart `ssh` service:
 ```
 radu@minibian:~$ sudo /etc/init.d/ssh restart
 ```
+# Temperature sensor setup
+Edit boot configuration to enable GPIO pins.
+```
+radu@minibian:~$ sudo nano /boot/config.txt
+```
+Add the following line:
+```
+dtoverlay=w1-gpio
+```
 # Camera setup
 ## Setup USB cameras
 Install `fswebcam`:
