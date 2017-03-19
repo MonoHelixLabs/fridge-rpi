@@ -144,6 +144,10 @@ network={
     psk="<WIFI_PASSWORD>"
 }
 ```
+Install CRDA to remove the pesky meesages when WiFi is enabled:
+```
+radu@minibian:~$ sudo apt-get install wireless-regdb iw crda
+```
 ### (Optional) Disable power save mode on Edimax EW-7811Un
 Make a file `8192cu.conf` in directory `/etc/modprobe.d/`:
 ```
