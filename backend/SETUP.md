@@ -235,6 +235,7 @@ Set `AIOKEY` and `AIOUSER` environment variable:
 ```
 radu@minibian:~$ sudo nano /etc/environment
 ```
+Remember to open a new session for the new environment variables to take effect.
 ## Code the GPIO
 Install `RPi.GPIO`:
 ```
