@@ -39,6 +39,30 @@ or if the optional step before was skipped:
 mac:LeanSetup radu$ sudo dd bs=4m if=2016-03-12-jessie-minibian.img of=/dev/disk11
 ```
 # Configure installation
+## Resize SD
+Use username `root` and passowrd `raspberry` to login.
+Start `fdisk` for current SD card:
+```
+root@minibian:~# fdisk /dev/mmcblk0
+```
+- You are not dropped into the fdisk prompt.
+- Print the list of partitions on the SD card with `p`.
+- Take note of the starting point for `mmcblk0p2`. It is probably 125056, but make sure to check the actual value.
+- Delete the main partition, `mmcblk0p2` by pressing `d` and then `2`.
+- Create a new primary partition by pressing `n`, `p` and then `2`. You now have to enter the start, which should match the previous value. Leave the default (full size) for the output.
+- Write new partition table with `w`.
+Reboot the machine for new partition table to take effect.
+```
+root@minibian:~# reboot
+```
+Now you can resize the partition:
+```
+root@minibian:~# resize2fs /dev/mmcblk0p2
+```
+Check to confirm the new size:
+```
+root@minibian:~# df -h
+```
 ## Change password
 Initial password for root is `raspberry` and we need to change to something more secure.
 ```
