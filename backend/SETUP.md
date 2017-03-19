@@ -156,6 +156,10 @@ Add the following line:
 ```
 dtoverlay=w1-gpio
 ```
+Reboot for changes to take effect:
+```
+radu@minibian:~$ sudo reboot
+```
 # Camera setup
 ## Setup USB cameras
 Install `fswebcam`:
