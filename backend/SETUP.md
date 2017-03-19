@@ -48,6 +48,10 @@ Upgrade packages to latest versions:
 ```
 root@minibian:~# apt-get update && apt-get upgrade
 ```
+Install nano text editor:
+```
+root@minibian:~# apt-get install nano
+```
 Install raspian config tool:
 ```
 root@minibian:~# apt-get install raspi-config
@@ -128,6 +132,10 @@ options 8192cu rtw_power_mgnt=0 rtw_enusbss=0
 ```
 # Secure system
 ## Change SSH configuration
+```
+radu@minibian:~$ sudo nano /etc/ssh/sshd_config
+```
+Add following to file:
 ```
 Port 12
 PasswordAuthentication no
