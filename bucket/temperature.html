@@ -75,9 +75,9 @@
 
 	<div class="container">
 		 <div class="row"> 
-		 	 <div id="temperature" class="col-sm-12 col-md-6">
-		    	<h3>Temperature</h3>
-					<div id="coldmap" style="position:relative; width:300px; margin-left: 20px; overflow:hidden;">
+			 <h3>Temperature</h3>
+		 	 <div id="temperature" class="col-sm-12 col-md-4">
+					<div id="coldmap" style="position:relative; width:300px; margin-left: 20px; overflow:hidden; margin-bottom:20px;">
 						<img src="fridge_heatmap.jpg" width="300">
 						<div id="overlay-tmptop" class="overlay" style="top: 0px; height: 160px; padding-top: 70px;">
 								<div class="api-response-tmptop"></div>
@@ -90,6 +90,16 @@
 						</div>
 					</div>
 		    </div>
+				<div class="col-sm-12 col-md-7" style="position:relative; margin-left: 35px; overflow:hidden;">
+					<div class="row">
+						<div class="latest-update-time text-muted" style="font-style:italic; padding-bottom: 10px;"></div>
+						<button class="btn btn-primary view-hist-temp"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Show historic data</button> 
+					</div>
+					<div class="row">
+						<div id="curve_chart" style="margin-top:20px; height: 300px;">
+					</div>
+				</div>
+				</div>
 		 </div>
 		   
 	</div>
@@ -107,24 +117,103 @@
 
 	<script>
 		// Get temperatures through the Adafruit IO REST API
-		$.get('https://io.adafruit.com/api/v2/ppaula/feeds/tmptop/data.json?limit=1', function(data, status) {
-					// parse as JSON but remove the starting [ and ending ]
-					jsonobj = JSON.parse(data.substring(1,data.length-1)); 
-					$('.api-response-tmptop').html(jsonobj.value + " &deg;C");
-					$('#overlay-tmptop').css('background-color',"rgb(105, 146, 181)");
-				}, 'html')
-		$.get('https://io.adafruit.com/api/v2/ppaula/feeds/tmpmiddle/data.json?limit=1', function(data, status) {
-					// parse as JSON but remove the starting [ and ending ]
-					jsonobj = JSON.parse(data.substring(1,data.length-1)); 
-					$('.api-response-tmpmid').html(jsonobj.value + " &deg;C");
-					$('#overlay-tmpmid').css('background-color',"rgb(54, 104, 148)");
-				}, 'html')
-		$.get('https://io.adafruit.com/api/v2/ppaula/feeds/tmpbottom/data.json?limit=1', function(data, status) {
-					// parse as JSON but remove the starting [ and ending ]
-					jsonobj = JSON.parse(data.substring(1,data.length-1)); 
-					$('.api-response-tmpbot').html(jsonobj.value + " &deg;C");
-					$('#overlay-tmpbot').css('background-color',"rgb(40, 78, 111)");
-				}, 'html')
+		var lastupdatedate = [];
+		$.when(
+			$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/tmptop/data.json?limit=1', function(data, status) {
+						$('.api-response-tmptop').html(data[0].value + " &deg;C");
+						$('#overlay-tmptop').css('background-color',"rgb(105, 146, 181)");
+						lastupdatedate.push(data[0].created_at);
+					}, 'html'),
+			$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/tmpmiddle/data.json?limit=1', function(data, status) {
+						$('.api-response-tmpmid').html(data[0].value + " &deg;C");
+						$('#overlay-tmpmid').css('background-color',"rgb(54, 104, 148)");
+						lastupdatedate.push(data[0].created_at);
+					}, 'html'),
+			$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/tmpbottom/data.json?limit=1', function(data, status) {
+						$('.api-response-tmpbot').html(data[0].value + " &deg;C");
+						$('#overlay-tmpbot').css('background-color',"rgb(40, 78, 111)");
+						lastupdatedate.push(data[0].created_at);
+					}, 'html')
+		).then(function() {
+			console.log(lastupdatedate);
+			var dates = lastupdatedate.map(function(x) { return new Date(x); })
+			var maxlastupdatedate = new Date(Math.max.apply(null, dates));
+			$('.latest-update-time').html("Last update: " + maxlastupdatedate); 
+		});
 	</script>
+
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+		// Get historical data and show on chart
+		$('.view-hist-temp').on('click', function(e) {
+      google.charts.load('current', {'packages':['corechart']});
+      //google.charts.setOnLoadCallback(drawChart);
+			drawChart();
+
+      function drawChart() {
+				var sensor1data = {};
+				var sensor2data = {};
+				var sensor3data = {};
+				var coeff = 1000 * 60 * 3;
+				var apilimit = '50';
+				var sensordatakeys = {};
+				var sensorsarray = [];
+
+				$.when(
+					$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/tmptop/data.json?limit='+apilimit, function(data, status) {
+						data.reverse();
+						for (var i in data) {
+							var created_at = new Date(data[i].created_at);
+							var rounded_created_at = new Date(Math.round(created_at / coeff) * coeff);
+							sensor1data[rounded_created_at] = +data[i].value;
+							sensordatakeys[rounded_created_at] = 1;
+						}
+					}),
+					$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/tmpmiddle/data.json?limit='+apilimit, function(data, status) {
+						data.reverse();
+						for (var i in data) {
+							var created_at = new Date(data[i].created_at);
+							var rounded_created_at = new Date(Math.round(created_at / coeff) * coeff);
+							sensor2data[rounded_created_at] = +data[i].value;
+							sensordatakeys[rounded_created_at] = 1;
+						}
+					}),
+					$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/tmpbottom/data.json?limit='+apilimit, function(data, status) {
+						data.reverse();
+						for (var i in data) {
+							var created_at = new Date(data[i].created_at);
+							var rounded_created_at = new Date(Math.round(created_at / coeff) * coeff);
+							sensor3data[rounded_created_at] = +data[i].value;
+							sensordatakeys[rounded_created_at] = 1;
+						}
+					})
+				).then(function() {
+					for (var key in sensordatakeys) {
+						var tempvals = [new Date(key),sensor1data[key],sensor2data[key],sensor3data[key]];
+						sensorsarray.push(tempvals);
+					}
+
+					var data = new google.visualization.DataTable();
+					data.addColumn('datetime', 'Time');
+					data.addColumn('number', 'Top Shelf');
+					data.addColumn('number', 'Middle Shelf');
+					data.addColumn('number', 'Bottom Shelf');
+					data.addRows(sensorsarray);
+
+					var options = {
+						title: 'Temperature over time',
+						curveType: 'function',
+						legend: { position: 'bottom' },
+						colors: ["rgb(105, 146, 181)", "rgb(54, 104, 148)", "rgb(40, 78, 111)"],
+						pointSize: 5
+					};
+
+					var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+					chart.draw(data, options);
+				});
+      }
+		});
+    </script>
 </body>
 </html>
