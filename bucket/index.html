@@ -96,6 +96,7 @@
 				<button class="btn btn-success take-snap"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Snapshot</button>
 				<button class="btn btn-primary refresh-images"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button>
 				<span class="snapshot-response"></span>
+				<div class="api-response-feedcamsnaps text-muted" style="font-style:italic; padding-top:10px;"></div>
 			</div>
 		</div>
 		<div>
@@ -144,19 +145,31 @@
 	</script>
 
 	<script>
+		function getLastSnapshotDate() {
+			// Get last snapshot date through the Adafruit IO REST API
+			$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/fridgecamsnaps/data.json?limit=1', function(data, status) {
+						$('.api-response-feedcamsnaps').html("Last snapshot: " + data[0].created_at);
+					}, 'html')
+		}
 		$('.take-snap').on('click', function(e) {
+			// Send a request to the API and show the response
 			e.preventDefault();
 			$.get('http://fridge-api-dev.eu-central-1.elasticbeanstalk.com/snapnow', function(data, status) {
 				$('.snapshot-response').html('<div class="alert alert-info alert-dismissable" style="display:inline-block;margin-bottom:0px; padding:5px; padding-right: 35px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + data + "</div>");
 			}, 'html')
 		});
 		$('.refresh-images').on('click', function(e) {
+			// Update images and last snapshot date
 			e.preventDefault();
-			const date = new Date().getTime();
-			$('#v1').attr('src',"http://fridge.monohelixlabs.com/v1.jpg?random="+date);
-			$('#v2').attr('src',"http://fridge.monohelixlabs.com/v2.jpg?random="+date);
-			$('#v0').attr('src',"http://fridge.monohelixlabs.com/v0.jpg?random="+date);
+			var source = 'http://fridge.monohelixlabs.com/';
+			const d = new Date().getTime();
+			$('#v1').attr('src', source + "v1.jpg?" + d);
+			$('#v2').attr('src', source + "v2.jpg?" + d);
+			$('#v0').attr('src', source + "v0.jpg?" + d);
+			getLastSnapshotDate();
 		});
+		// On document load get the last snapshot date
+		getLastSnapshotDate();
 	</script>
 
 </body>
