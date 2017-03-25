@@ -2,7 +2,7 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Fridge - About</title>
+	<title>Fridge - Scale</title>
     
     <!-- Google Analytics -->
 	<script>
@@ -11,7 +11,7 @@
 		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 		ga('create', 'UA-74347185-2', 'auto');
-		ga('send', 'About Pageview');
+		ga('send', 'Scale Pageview');
 	</script>
 	<!-- End Google Analytics -->
 
@@ -39,6 +39,15 @@
 		  padding-right: 15px;
 		  padding-left: 15px;
 		}
+		.overlay {
+			position: absolute;
+			width: 300px;
+			background-color: #7f9cc1;
+			opacity: .7;
+			text-align: center;
+			color: white;
+			font-weight: bold;
+		}
 	</style>
 
 </head>
@@ -58,8 +67,8 @@
           <ul class="nav navbar-nav">
             <li><a href="index.html"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span> FridgeCam</a></li>
             <li><a href="temperature.html"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Temperature</a></li>
-            <li><a href="scale.html"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Scale</a></li>
-						<li class="active"><a href="about.html"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li>
+						<li class="active"><a href="scale.html"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Scale</a></li>
+            <li><a href="about.html"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -67,14 +76,8 @@
 
 	<div class="container">
 		 <div class="row"> 
-		 	 <div id="about" class="col-sm-12 col-md-6">
-		    	<h3>About</h3>
-		    	<p>This is the website for our prototype of a smart fridge. An old "dumb" fridge has been retrofitted with a Raspberry Pi and 3 wide-lens cameras. </p>
-		    	<p>The cameras allow us to see the latest contents of the fridge from 3 different angles. </p>
-		    	<p>We also have temperature sensors. Yes, multiple sensors (!), so that we can compare the temperature between the shelves. </p>
-					<p>And we plan to add some scales so that we can check out exactly how much milk we have left.</p>
-		    	<p>Find out more about our other projects at <a href="http://monohelixlabs.com" target="_blank">monohelixlabs.com</a>.</p>
-		    </div>
+			 <h3>Scale</h3>
+		 	 Coming soon ...
 		 </div>
 		   
 	</div>
@@ -90,5 +93,6 @@
     <!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+	
 </body>
 </html>
