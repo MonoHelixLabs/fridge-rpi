@@ -39,17 +39,13 @@
 		  padding-right: 15px;
 		  padding-left: 15px;
 		}
-		.overlay {
+		.liquid-overlay {
 			position: absolute;
-			width: 300px;
-			background-color: #7f9cc1;
+			background-color: white;
 			opacity: .7;
-			text-align: center;
-			color: white;
-			font-weight: bold;
+			bottom: 20px;
 		}
 	</style>
-
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -78,7 +74,23 @@
 		 <div class="row"> 
 			 <div class="col-sm-12 col-md-12">
 				<h3>Scale</h3>
-				Coming soon ...
+				<div class="latest-update-time text-muted" style="font-style:italic; padding-bottom: 10px;"></div>
+				<br/>
+				<div id="pos1" class="col-sm-12 col-md-3" style="position:relative; width:280px; overflow:hidden; margin-bottom: 20px;">
+					<div class="overlay-pos1 liquid-overlay" style="width: 242px;"></div>
+					<div style="position:relative;"><img src="water_filter.png" height="300"></div>
+					<div class="api-response-pos1"></div>
+				</div>
+				<div id="pos2" class="col-sm-12 col-md-2" style="margin-bottom: 20px;">
+					<div class="overlay-pos2 liquid-overlay" style="width: 136px; "></div>
+					<div style="position:relative;"><img src="milk_carton.png" height="300"></div>
+					<div class="api-response-pos2"></div>
+				</div>
+				<div id="pos3" class="col-sm-12 col-md-2" style="margin-bottom: 20px;">
+					<div class="overlay-pos3 liquid-overlay" style="width: 136px;"></div>
+					<div style="position:relative;"><img src="milk_carton.png" height="300"></div>
+					<div class="api-response-pos3"></div>
+				</div>
 			 </div>
 		 </div>
 		   
@@ -95,6 +107,49 @@
     <!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+	<script>
+		// Helper function to compute how much liquid overlay should be shown 
+		// (Percentage represents top padding, so 0% means the recipient is full, and 100% it is empty)
+		function getFillPercentage(x) {
+			if (x >= 1000) {
+				return '0%';
+			}
+			else if (x <=0) {
+				return '100%';
+			}
+			else {
+				var perc = 100-x/1000*100;
+				return perc.toString() + '%';
+			}
+		} 
+
+		// Get weights through the Adafruit IO REST API
+		var lastupdatedate = [];
+		$.when(
+			$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/scalepos1/data.json?limit=1', function(data, status) {
+						var val = data[0].value;
+						$('.api-response-pos1').html(val + " g");
+						$('.overlay-pos1').css('top',getFillPercentage(+val));
+						lastupdatedate.push(data[0].created_at);
+					}, 'html'),
+			$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/scalepos2/data.json?limit=1', function(data, status) {
+						var val = data[0].value;
+						$('.api-response-pos2').html(val + " g");
+						$('.overlay-pos2').css('top',getFillPercentage(+val));
+						lastupdatedate.push(data[0].created_at);
+					}, 'html'),
+			$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/scalepos3/data.json?limit=1', function(data, status) {
+						var val = data[0].value;
+						$('.api-response-pos3').html(val + " g");
+						$('.overlay-pos3').css('top',getFillPercentage(+val));
+						lastupdatedate.push(data[0].created_at);
+					}, 'html')
+		).then(function() {
+			var dates = lastupdatedate.map(function(x) { return new Date(x); })
+			var maxlastupdatedate = new Date(Math.max.apply(null, dates));
+			$('.latest-update-time').html("Last update: " + maxlastupdatedate); 
+		});
+	</script>
 	
 </body>
 </html>
