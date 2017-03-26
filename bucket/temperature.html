@@ -97,7 +97,7 @@
 						<button class="btn btn-default view-hist-temp"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Show historic data</button> 
 					</div>
 					<div class="row">
-						<div id="curve_chart" style="margin-top:20px; height: 300px;">
+						<div id="curve_chart" style="margin-top:20px; height: 320px;">
 					</div>
 				</div>
 				</div>
@@ -136,7 +136,6 @@
 						lastupdatedate.push(data[0].created_at);
 					}, 'html')
 		).then(function() {
-			console.log(lastupdatedate);
 			var dates = lastupdatedate.map(function(x) { return new Date(x); })
 			var maxlastupdatedate = new Date(Math.max.apply(null, dates));
 			$('.latest-update-time').html("Last update: " + maxlastupdatedate); 
