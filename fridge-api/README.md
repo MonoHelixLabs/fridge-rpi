@@ -1,7 +1,7 @@
 # Setup env for RESTful Fridge API
 
 ## About
-The code in this folder shows how to create a Fridge API that stands as a layer between various interfaces (such as a web page or an Alexa skill) and the backend.
+The code in this folder shows how to create a Fridge API that stands as a layer between the backend and interfaces such as a web page or an Alexa skill.
 
 ## Install required packages
 
@@ -14,6 +14,8 @@ pip install flask-cors
 pip install paho-mqtt
 # pip install adafruit-io
 ```
+
+(Note: The adafruit-io package required some fixes, therefore it is included as a folder and does not require installation. If the fix is done in the release in the future, then switch to normal installation.)
 
 To run the application locally:
 
