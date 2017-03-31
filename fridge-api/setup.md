@@ -10,14 +10,12 @@ pip install flask
 pip install flask-cors
 pip install paho-mqtt
 # pip install adafruit-io
-
 ```
 
 To run the application locally:
 
 ```
 python application.py
-
 ```
 
 # Setup Elastic Beanstalk Python project
@@ -27,21 +25,28 @@ pip install awsebcli
 pip freeze > requirements.txt
 eb init
 eb create
-
 ```
 
 To commit changes:
 
 ```
 eb deploy
-
 ```
 
 To see app in browser:
 
 ```
 eb open
+```
 
+## Make changes to the application and deploy to EB
+
+
+```
+source ~/.virtualenvs/fridge-api/bin/activate
+python application.py
+eb deploy
+eb open
 ```
 
 ## Links

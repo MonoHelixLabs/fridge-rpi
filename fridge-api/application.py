@@ -1,7 +1,7 @@
 import time
 from Adafruit_IO import Client
 from Adafruit_IO import MQTTClient
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 application = Flask(__name__)
 cors = CORS(application)
@@ -51,6 +51,14 @@ def hello():
 @cross_origin()
 def snapnow():
     return send_message()
+
+@application.route('/status', methods=['GET'])
+@cross_origin()
+def status():
+    temp = 3.4
+    humidity = 10
+    return jsonify({'status':{'temperature':str(temp),'humidity':str(humidity)}})
+
 
 if __name__ == "__main__":
     setup_mqtt()
