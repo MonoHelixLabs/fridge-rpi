@@ -1,6 +1,9 @@
-Setup env for RESTful Fridge API
+# Setup env for RESTful Fridge API
 
-# Install required packages
+## About
+The code in this folder shows how to create a Fridge API that stands as a layer between various interfaces (such as a web page or an Alexa skill) and the backend.
+
+## Install required packages
 
 ```
 brew install python3
@@ -18,7 +21,7 @@ To run the application locally:
 python application.py
 ```
 
-# Setup Elastic Beanstalk Python project
+## Setup Elastic Beanstalk Python project
 
 ```
 pip install awsebcli
