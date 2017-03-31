@@ -9,7 +9,7 @@ application.config['CORS_HEADERS'] = 'Content-Type'
 
 aio_key = ''
 aio_user = ''
-aio = Client(aio_key)
+aio_rest = Client(aio_key)
 aio_mqtt = MQTTClient(aio_user, aio_key)
 mqtt_feed = 'fridgecam'
 mqtt_message = 'snapnow'
@@ -55,9 +55,11 @@ def snapnow():
 @application.route('/status', methods=['GET'])
 @cross_origin()
 def status():
-    temp = 3.4
-    humidity = 10
-    return jsonify({'status':{'temperature':str(temp),'humidity':str(humidity)}})
+    top = aio_rest.receive('tmptop')
+    mid = aio_rest.receive('tmpmiddle')
+    bot = aio_rest.receive('tmpbottom')
+    temp = round((float(top.value) + float(mid.value) + float(bot.value))/3.0,1)
+    return jsonify({'status':{'temperature':str(temp)}})
 
 
 if __name__ == "__main__":
