@@ -61,6 +61,13 @@ def status():
     temp = round((float(top.value) + float(mid.value) + float(bot.value))/3.0,1)
     return jsonify({'status':{'temperature':str(temp)}})
 
+@application.route('/milkstatus', methods=['GET'])
+@cross_origin()
+def milkstatus():
+    milkscale1 = aio_rest.receive('scalepos2')
+    milkscale2 = aio_rest.receive('scalepos3')
+    liters = (float(milkscale1.value) + float(milkscale2.value))/1000.
+    return jsonify({'status':{'liters':str(liters)}})
 
 if __name__ == "__main__":
     setup_mqtt()
