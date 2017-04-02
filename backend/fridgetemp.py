@@ -1,3 +1,10 @@
+# Read temperature values and send them to Adafruit IO MQTT feeds.
+#
+# Using three DS18B20 temperature sensors.
+#
+# Copyright (c) 2017 MonoHelix Labs
+
+
 import os
 import sys
 from time import sleep
