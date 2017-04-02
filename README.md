@@ -6,7 +6,7 @@ A smart fridge prototype running on Raspberry Pi.
 
 ## Prototype
 
-An old fridge has been retrofitted with a Raspberry Pi 2 Model B, 3 wide-lens cameras (1 Raspberry Pi camera and 2 USB cameras), 3 temperature sensors (DS18B20), and 2 weight scales (3-wire load cells). 
+A regular fridge has been retrofitted with a Raspberry Pi 2 Model B, 3 wide-lens cameras (1 Raspberry Pi camera and 2 USB cameras), 3 temperature sensors (DS18B20), and 2 weight scales (3-wire load cells). 
 
 The readings from the sensors are sent periodically to Adafruit IO through MQTT and the images are saved to Amazon S3. 
 
