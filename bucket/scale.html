@@ -76,19 +76,18 @@
 				<h3>Scale</h3>
 				<div class="latest-update-time text-muted" style="font-style:italic; padding-bottom: 10px;"></div>
 				<br/>
-				<div id="pos1" class="col-sm-12 col-md-3" style="position:relative; width:280px; overflow:hidden; margin-bottom: 20px;">
-					<div class="overlay-pos1 liquid-overlay" style="width: 242px;"></div>
-					<div style="position:relative;"><img src="water_filter.png" height="300"></div>
-					<div class="api-response-pos1"></div>
-				</div>
 				<div id="pos2" class="col-sm-12 col-md-2" style="margin-bottom: 20px;">
 					<div class="overlay-pos2 liquid-overlay" style="width: 136px; "></div>
 					<div style="position:relative;"><img src="milk_carton.png" height="300"></div>
+				</div>
+				<div class="col-sm-12 col-md-1" style="margin-bottom: 20px;">
 					<div class="api-response-pos2"></div>
 				</div>
 				<div id="pos3" class="col-sm-12 col-md-2" style="margin-bottom: 20px;">
 					<div class="overlay-pos3 liquid-overlay" style="width: 136px;"></div>
 					<div style="position:relative;"><img src="milk_carton.png" height="300"></div>
+				</div>
+				<div class="col-sm-12 col-md-1" style="margin-bottom: 20px;">
 					<div class="api-response-pos3"></div>
 				</div>
 			 </div>
@@ -126,12 +125,6 @@
 		// Get weights through the Adafruit IO REST API
 		var lastupdatedate = [];
 		$.when(
-			$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/scalepos1/data.json?limit=1', function(data, status) {
-						var val = data[0].value;
-						$('.api-response-pos1').html(val + " g");
-						$('.overlay-pos1').css('top',getFillPercentage(+val));
-						lastupdatedate.push(data[0].created_at);
-					}, 'html'),
 			$.getJSON('https://io.adafruit.com/api/v2/ppaula/feeds/scalepos2/data.json?limit=1', function(data, status) {
 						var val = data[0].value;
 						$('.api-response-pos2').html(val + " g");
