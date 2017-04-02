@@ -66,7 +66,7 @@ def status():
 def milkstatus():
     milkscale1 = aio_rest.receive('scalepos2')
     milkscale2 = aio_rest.receive('scalepos3')
-    liters = (float(milkscale1.value) + float(milkscale2.value))/1000.
+    liters = round((float(milkscale1.value) + float(milkscale2.value))/1000.,2)
     return jsonify({'status':{'liters':str(liters)}})
 
 if __name__ == "__main__":
