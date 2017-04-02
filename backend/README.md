@@ -188,6 +188,13 @@ Reboot for changes to take effect:
 ```
 radu@minibian:~$ sudo reboot
 ```
+# Weight sensor setup
+Get the ```hx711.py``` file from the repo: https://github.com/MonoHelixLabs/hx711py and place it in the folder as ```fridgescale.py```
+
+Install ```numpy```:
+```
+sudo pip3 install numpy
+```
 # Camera setup
 ## Setup USB cameras
 Install `fswebcam`:
