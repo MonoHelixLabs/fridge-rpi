@@ -1,3 +1,10 @@
+# Listen to an MQTT feed and when a message is received 
+# take pictures and save them to S3. 
+#
+# Using an RPi camera and two USB cameras.
+#
+# Copyright (c) 2017 MonoHelix Labs
+
 import os
 import sys
 import multiprocessing
