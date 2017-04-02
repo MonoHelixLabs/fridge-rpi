@@ -15,7 +15,7 @@ pip install paho-mqtt
 # pip install adafruit-io
 ```
 
-(Note: The adafruit-io package required some fixes, therefore it is included as a folder and does not require installation. If the fix is done in the release in the future, then switch to normal installation.)
+(Note: The adafruit-io package required some fixes, therefore it is included as a folder and does not require installation. Credit for the Adafruit IO Python Client Library code goes to Adafruit, code repo ```https://github.com/adafruit/io-client-python```. If the fix is done in the release in the future, then switch to normal installation.)
 
 To run the application locally:
 
