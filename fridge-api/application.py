@@ -1,3 +1,9 @@
+# Fridge API providing an interface for publishing and 
+# receiving data to/from Adafruit IO, and adding some
+# logic in between.
+#
+# Copyright (c) 2017 MonoHelix Labs
+
 import time
 from Adafruit_IO import Client
 from Adafruit_IO import MQTTClient
