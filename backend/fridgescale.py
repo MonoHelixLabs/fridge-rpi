@@ -1,4 +1,5 @@
-# Retrieve weight from weight scales using HX711.
+# Read the weight from weight scales using HX711 and send the
+# values to Adafruit IO.
 #
 # Code is based on the HX711 Python Library for Raspberry Pi 
 # written by Philip Whitfield "https://github.com/underdoeg/" 
@@ -6,8 +7,15 @@
 # and further adapted to Python 3 in the MonoHelix Labs fork 
 # "https://github.com/MonoHelixLabs/hx711py"
 #
-# Note that you need the HX711.py from repo mentione above
+# Note that you need the HX711.py from repo mentioned above
 # to be in the same folder as this file.
+#
+# Copyright (c) 2017 MonoHelix Labs
+#
+# Example RPi pin setup (in bcm and board layout):
+#   dout -> 5 bcm -> 29 board
+#   sck -> 6 bcm -> 31 board
+
 
 import RPi.GPIO as GPIO
 import time
